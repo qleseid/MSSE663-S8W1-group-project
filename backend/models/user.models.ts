@@ -1,10 +1,17 @@
-import mongoose = require('mongoose');
+import {model, Schema} from 'mongoose';
 import bcrypt = require('bcryptjs');
 import jwt = require('jsonwebtoken');
-
 import { databaseSecret } from '../environment';
 
-const userSchema = new mongoose.Schema({
+interface User {
+  id: number;
+  username: string;
+  password: string;
+  tokens: [];
+}
+
+// User Schema
+export const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -23,8 +30,7 @@ const userSchema = new mongoose.Schema({
   }]
 });
 
-userSchema.pre('save', async function(next) {
-  // Hash the password before saving the user model
+UserSchema.pre('save', async function(next) {
   const user = this;
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8);
@@ -32,7 +38,7 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-userSchema.methods.generateAuthToken = async function() {
+UserSchema.methods.generateAuthToken = async function() {
   const user = this;
   const token = jwt.sign({_id: user._id}, databaseSecret);
   user.tokens = user.tokens.concat({token});
@@ -40,7 +46,7 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
-userSchema.statics.findByCredentials = async (username: string, password: string) => {
+UserSchema.statics.findByCredentials = async (username: string, password: string) => {
   // Search for a user by username and password.
   const user = await User.findOne({ username} );
   if (!user) {
@@ -53,6 +59,4 @@ userSchema.statics.findByCredentials = async (username: string, password: string
   return user;
 };
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+export const User = model('User', UserSchema);
