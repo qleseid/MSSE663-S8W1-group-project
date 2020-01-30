@@ -1,22 +1,26 @@
 import jwt = require('jsonwebtoken');
 
 import {databaseSecret} from '../environment';
-import User = require('../models/user2');
+import { User } from '../models/user.models';
 
-const auth = async (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-  const data = jwt.verify(token, databaseSecret);
+export const auth = async (req: any, res: any, next: any) => {
   try {
-    const user = await User.findOne({_id: data._id, 'tokens.token': token });
-    if (!user) {
-      throw new Error();
+    const token = req.header('Authorization').replace('Bearer ', '');
+    const data = jwt.verify(token, databaseSecret);
+    try {
+      const user = await User.findOne({_id: data._id, 'tokens.token': token});
+      if (!user) {
+        throw new Error();
+      }
+      req.user = user;
+      req.token = token;
+      next();
+    } catch (error) {
+      res.status(401).send({error: 'Not authorized to access these resources.'});
     }
-    req.user = user;
-    req.token = token;
-    next();
   } catch (error) {
-    res.status(401).send({error: 'Not authorized to access this resources.'});
+    res.status(401).send({error: 'Not authorized to access these resources'});
   }
 };
 
-module.exports = auth;
+// module.exports = auth;

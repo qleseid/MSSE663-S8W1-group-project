@@ -1,10 +1,10 @@
 import express = require('express');
-import User = require('../models/user2');
-import auth = require('../middleware/auth');
+import { User } from '../models/user.models';
+import { auth } from '../middleware/auth';
 
-const user2Routes = express.Router();
+export const user3Routes = express.Router();
 
-user2Routes.post('/register', async (req: any, res: any) => {
+user3Routes.post('/register', async (req: any, res: any) => {
   try {
     const user = new User(req.body);
     await user.save();
@@ -15,7 +15,7 @@ user2Routes.post('/register', async (req: any, res: any) => {
   }
 });
 
-user2Routes.post('/login', async (req: any, res: any) => {
+user3Routes.post('/login', async (req: any, res: any) => {
   // Login a registered user
   try {
     const {username, password} = req.body;
@@ -31,30 +31,30 @@ user2Routes.post('/login', async (req: any, res: any) => {
 
 });
 
-user2Routes.get('/me', auth, async (req: any, res: any) => {
+user3Routes.get('/me', auth, async (req: any, res: any) => {
   res.send(req.user);
 });
 
-user2Routes.post('/logout', auth, async (req: any, res: any) => {
+user3Routes.post('/logout', auth, async (req: any, res: any) => {
   try {
     req.user.tokens = req.user.tokens.filter((token) => {
       return token.token !== req.token;
     });
     await req.user.save();
-    res.send();
+    res.send({user: req.user});
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-user2Routes.post('/logoutAll', auth, async (req: any, res: any) => {
+user3Routes.post('/logoutAll', auth, async (req: any, res: any) => {
   try {
     req.user.tokens.splice(0, req.user.tokens.length);
     await req.user.save();
-    res.send();
+    res.send({user: req.user});
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-module.exports = user2Routes;
+// module.exports = user3Routes;
