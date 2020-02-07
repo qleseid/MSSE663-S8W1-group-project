@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 
-//This routes the app from specific address bar inputs
+// This routes the app from specific address bar inputs
 const routes: Routes = [
   {path: "", component: LoginComponent},
   {path: "login", component: LoginComponent},
