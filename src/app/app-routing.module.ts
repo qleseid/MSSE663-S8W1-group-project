@@ -8,9 +8,9 @@ import {AuthGuard} from './auth.guard';
 
 
 const routes: Routes = [
-  { path: '',       component: LoginComponent },
-  { path: 'login',       component: LoginComponent },
-  { path: 'register',    component: RegisterComponent },
+  { path: '',               redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login',          component: LoginComponent },
+  { path: 'register',       component: RegisterComponent },
   {
     path: 'profile',
     component: ProfileComponent,
@@ -20,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

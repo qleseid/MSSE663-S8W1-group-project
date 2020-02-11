@@ -1,1 +1,52 @@
-<p>profile works!</p>
+<div class="centered-content has-background-grey-light">
+  <div class="home-container">
+    <div class="home-selected-container has-background-light">
+      <h2>Your User Information</h2>
+      <p><strong>First Name:</strong> {{authService.currentUserValue.firstName}}</p>
+      <p><strong>Last Name:</strong> {{authService.currentUserValue.lastName}}</p>
+      <p><strong>Username:</strong> {{authService.currentUserValue.username}}</p>
+      <hr>
+      <div>
+        <h2 class="title has-text-primary">Edit User Information</h2>
+        <form name="form" [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+          <div class="form-group" [ngClass]="{ 'has-error': submitted && f.firstName.errors }">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" formControlName="firstName" id="firstName"
+                   required/>
+            <div *ngIf="submitted && f.firstName.errors" class="help-block">First Name is required</div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error': submitted && f.lastName.errors }">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" formControlName="lastName" id="lastName"
+                   required/>
+            <div *ngIf="submitted && f.lastName.errors" class="help-block">Last Name is required</div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error': submitted && f.password.errors }">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" formControlName="password" id="password"
+                   required/>
+            <div *ngIf="submitted && f.password.errors" class="help-block">Password is required</div>
+          </div>
+          <div class="form-group" [ngClass]="{ 'has-error': submitted && f.confirmPassword.errors }">
+            <label for="confirmPassword">Re-type Password</label>
+            <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword"
+                   id="confirmPassword"
+                   required/>
+            <div *ngIf="submitted && f.confirmPassword.errors" class="help-block">confirmPassword is required</div>
+          </div>
+          <div *ngIf="submitted && error" class="form-group" [ngClass]="{ 'has-error': submitted && error }">
+            <div class="help-block">{{error}}</div>
+          </div>
+          <div *ngIf="updateUserForm.controls.confirmPassword.errors?.MatchPassword" class="form-group has-error">
+            <div class="help-block">Passwords do not match</div>
+          </div>
+          <div class="form-group">
+            <button [disabled]="loading" class="button is-grey-lighter has-background-gray" type="submit">Update</button>
+            <img *ngIf="loading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
