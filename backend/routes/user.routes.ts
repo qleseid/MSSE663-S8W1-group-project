@@ -1,60 +1,23 @@
-import express = require('express');
-import { User } from '../models/user.models';
+import * as express from 'express';
 import { auth } from '../middleware/auth';
+import { registerUser, loginUser, getLoggedInUser, logoutAllUser, logoutUser, updateUser } from '../controllers/user.controller';
 
-export const user3Routes = express.Router();
+export const userRoutes = express.Router();
 
-user3Routes.post('/register', async (req: any, res: any) => {
-  try {
-    const user = new User(req.body);
-    await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({user, token});
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
+// Register User
+userRoutes.post('/register', registerUser);
 
-user3Routes.post('/login', async (req: any, res: any) => {
-  // Login a registered user
-  try {
-    const {username, password} = req.body;
-    const user = await User.findByCredentials(username, password);
-    if (!user) {
-      return res.status(401).send({error: 'Login failed! Check authentication credentials'});
-    }
-    const token = await user.generateAuthToken();
-    res.send({user, token});
-  } catch (error) {
-    res.status(400).send(error);
-  }
+// Login User
+userRoutes.post('/login', loginUser);
 
-});
+// Get logged in user information
+userRoutes.get('/me', auth, getLoggedInUser);
 
-user3Routes.get('/me', auth, async (req: any, res: any) => {
-  res.send(req.user);
-});
+// User logs out from CURRENT device
+userRoutes.post('/logout', auth, logoutUser);
 
-user3Routes.post('/logout', auth, async (req: any, res: any) => {
-  try {
-    req.user.tokens = req.user.tokens.filter((token) => {
-      return token.token !== req.token;
-    });
-    await req.user.save();
-    res.send({user: req.user});
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// User logs out from ALL devices
+userRoutes.post('/logoutAll', auth, logoutAllUser);
 
-user3Routes.post('/logoutAll', auth, async (req: any, res: any) => {
-  try {
-    req.user.tokens.splice(0, req.user.tokens.length);
-    await req.user.save();
-    res.send({user: req.user});
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-// module.exports = user3Routes;
+// Update User. Slightly adapted to only work with password and isAuthor field.
+userRoutes.put('/update', auth, updateUser);
