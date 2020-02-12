@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { first } from "rxjs/operators";
 
-import {AuthService} from '../auth.service';
+import { AuthService } from "../auth.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -21,37 +20,30 @@ export class LoginComponent implements OnInit {
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
-    // private alertService: AlertService
+    private authService: AuthService // private alertService: AlertService
   ) {
     if (this.authService.isLoggedIn()) {
-      window.alert('Already Logged in!');
-      this.router.navigate(['/profile']);
+      window.alert("Already Logged in!");
+      this.router.navigate(["/profile"]);
     }
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/profile';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || "/profile";
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
-
-  login() {
+  login(loginForm: FormGroup) {
     this.submitted = true;
-    if (this.loginForm.invalid) {
+    if (loginForm.invalid) {
       return;
     }
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.authService
+      .login(loginForm.get("username").value, loginForm.get("password").value)
       .pipe(first())
       .subscribe(
         data => {
-          window.alert('Successfully Logged in!');
+          window.alert("Successfully Logged in!");
           this.router.navigate([this.returnUrl]);
         },
         error => {
