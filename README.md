@@ -9,7 +9,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     Form for user to enter login and password
     correspodning fields in data  base for each user
     
-      funcitonality: should be able to enter new user and password
+      functionality: should be able to enter new user and password
       should  be able to check if unique user (so as to not have two that are the same)
       should be able to save it in the data base when user clicks submit
       
@@ -39,7 +39,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
         
     Corresponding data base fields for the above
     
-    funcitonality--should save in data base
+    functionality--should save in data base
     
     b. update recipe
       shoulld pull up the saved recipe and allow changes
@@ -49,7 +49,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
         should be able to pull up recipe and delete it
         should delete in data base
         
-  3. search for.view recipes
+  3. search for/view recipes
   
       user needs a search for keyword option or search based upon recipe name
       needs to find in data base
