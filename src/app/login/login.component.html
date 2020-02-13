@@ -1,0 +1,49 @@
+<div class="container is-fluid">
+  <div class="notification has-background-grey-light">
+    <div class="centered-content">
+      <div class="home-container">
+        <div class="home-selected-container has-background-light">
+          <h2 class="title">Login</h2>
+          <form name="form" [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                <input class="input" type="text" placeholder="Username" name="username" formControlName="username"
+                       required />
+                <span style="color:red" ng-show="f.submitted && !username.valid">
+                  <span *ngIf="submitted && f.username.errors">Username is required.</span>
+                </span>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-envelope" style="font-size: 28px; color: rgb(85, 85, 85);"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="password" placeholder="Password" name="password" formControlName="password"
+                      required />
+                <span style="color:red" ng-show="f.submitted && !password.valid">
+                  <span *ngIf="submitted && f.password.errors">Password is required.</span>
+                </span>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-link" style="font-size: 28px; color: rgb(87, 83, 83);"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <span style="color: red;" *ngIf="submitted && error">{{error}}</span>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button [disabled]="loading" class="button is-success">
+                  Login
+                </button>
+                <img *ngIf="loading"
+                     src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a [routerLink]="['/register']" class="btn btn-link">Register</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
