@@ -1,2 +1,11 @@
+<<<<<<< HEAD
 <p>Working</p>
+=======
+<div>
+  <a *ngIf="!this.authService.isLoggedIn() && this.router.url !== '/login'" [routerLink]="['/login']">
+    <button type="button" class="btn btn-primary">Login</button>
+  </a>
+  <button (click)="logout()" *ngIf="this.authService.isLoggedIn()" type="button" class="btn btn-primary">Logout</button>
+</div>
+>>>>>>> 9bb9223ecb20111b27217ab429c33d5861283f24
 <router-outlet></router-outlet>

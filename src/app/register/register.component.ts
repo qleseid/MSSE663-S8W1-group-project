@@ -6,12 +6,12 @@ import { first } from 'rxjs/operators';
 import {AuthService} from '../auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
@@ -39,19 +41,19 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() { return this.registerForm.controls; }
 
-  login() {
+  register() {
     this.submitted = true;
-    if (this.loginForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.authService.register(this.f.firstName.value, this.f.lastName.value, this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          window.alert('Successfully Logged in!');
+          window.alert('Successfully registered and logged in!');
           this.router.navigate([this.returnUrl]);
         },
         error => {
@@ -60,4 +62,5 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
 }
