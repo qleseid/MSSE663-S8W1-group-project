@@ -1,0 +1,22 @@
+.recipeList li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: 4px;
+    padding: 4px 4px;
+    height: 20px;
+    border-radius: 4px;
+    list-style: none;
+  }
+
+  .recipeList li:hover {
+    color: rgb(108, 130, 141);
+    background-color: #DDD;
+    left: 2px;
+  }
+
+.recipeList li.selected {
+    background-color: #CFD8DC;
+    color: white;
+  }
