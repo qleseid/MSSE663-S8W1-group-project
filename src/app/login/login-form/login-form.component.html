@@ -9,8 +9,8 @@
         formControlName="username"
         required
       />
-      <span style="color:red" *ngIf="f.submitted && !username.valid">
-        <span *ngIf="submitted && f.username.errors"
+      <span style="color:red" *ngIf="f._submitted && !username.valid">
+        <span *ngIf="_submitted && f.username.errors"
           >Username is required.</span
         >
       </span>
@@ -32,8 +32,8 @@
         formControlName="password"
         required
       />
-      <span style="color:red" *ngIf="f.submitted && !password.valid">
-        <span *ngIf="submitted && f.password.errors"
+      <span style="color:red" *ngIf="f._submitted && !password.valid">
+        <span *ngIf="_submitted && f.password.errors"
           >Password is required.</span
         >
       </span>
@@ -46,15 +46,15 @@
     </p>
   </div>
   <div class="field">
-    <span style="color: red;" *ngIf="submitted && error">{{ error }}</span>
+    <span style="color: red;" *ngIf="_submitted && _error">{{ _error }}</span>
   </div>
   <div class="field">
     <p class="control">
-      <button [disabled]="loading" class="button is-success">
+      <button [disabled]="_loading" class="button is-success">
         Login
       </button>
       <img
-        *ngIf="loading"
+        *ngIf="_loading"
         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
       />
       <a [routerLink]="['/register']" class="btn btn-link">Register</a>

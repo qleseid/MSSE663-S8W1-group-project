@@ -8,10 +8,10 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  error: string;
+
+  @Input() _loading: boolean;
+  @Input() _submitted: boolean;
+  @Input() _error: String;
 
   @Output() sendForm = new EventEmitter<FormGroup>();
 
