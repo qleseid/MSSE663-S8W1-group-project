@@ -3,7 +3,7 @@
       <li *ngFor="let recipe of recipes"
             [class.selected]="recipe === selectedRecipe"
             (click)="selectRecipe(recipe)">
-            {{ recipe.name }}
+            {{ recipe.title }}
         </li>
     </ul>
     <button (click)="addRecipe()">Add Recipe</button>
