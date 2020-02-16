@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { RecipeService } from '../services/recipe.service';
 import { Router } from '@angular/router';
+import { recipe } from '../recipe.model';
 
 interface Recipe {
   name: string;
@@ -15,8 +16,8 @@ interface Recipe {
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
-  recipeList$: Observable<Recipe[]>;
-  selectedRecipe: Recipe;
+  recipeList$: Observable<recipe[]>;
+  selectedRecipe: recipe;
   
   constructor(
     private recipeService: RecipeService, 
@@ -27,7 +28,7 @@ export class RecipeListComponent implements OnInit {
     this.recipeList$ = this.recipeService.getRecipes();
   }
 
-  selectRecipe(recipe: Recipe): void {
+  selectRecipe(recipe: recipe): void {
     console.log(recipe);
     this.recipeService.selectedRecipe(recipe);
   }

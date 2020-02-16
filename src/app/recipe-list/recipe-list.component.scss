@@ -1,3 +1,10 @@
+.recipeList {
+    margin: 0 0 8px 0;
+    list-style-type: none;
+    padding: 0;
+    width: 150px;
+  }
+
 .recipeList li {
     cursor: pointer;
     position: relative;
@@ -5,18 +12,24 @@
     background-color: #EEE;
     margin: 4px;
     padding: 4px 4px;
-    height: 20px;
+    height: 30px;
     border-radius: 4px;
     list-style: none;
   }
 
   .recipeList li:hover {
-    color: rgb(108, 130, 141);
+    color: rgb(221, 107, 177);
     background-color: #DDD;
     left: 2px;
   }
 
-.recipeList li.selected {
-    background-color: #CFD8DC;
+  .recipeList li.selected {
+    background-color: rgb(19, 101, 136);
     color: white;
   }
+
+  .recipeList li.selected:hover {
+    background-color: #BBD8DC;
+    color: white
+  }
+
